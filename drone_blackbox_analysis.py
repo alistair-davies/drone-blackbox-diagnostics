@@ -1,57 +1,43 @@
-import matplotlib
-# Added during development to resolve issues with
-# Matplotlib plot windows not closing correctly.
-matplotlib.use("TkAgg")
-
 import pandas as pd
-import matplotlib.pyplot as plt 
 
-df = pd.read_csv("test_blackbox.csv", skiprows=150)
-#print(df.head())
-#print(df.columns)
+print("Loading CSV...")
+df = pd.read_csv("btfl_012.bbl.csv", skiprows=150)
+print("CSV loaded")
 
-gps = df[(df["GPS_coord[0]"] != 0) & (df["GPS_coord[1]"] != 0)]
+# ------------------------
+# Motor output statistics
+# ------------------------
 
-plt.plot(df["time"], df["motor[0]"], label="Motor 0")
-plt.plot(df["time"], df["motor[1]"], label="Motor 1")
-plt.plot(df["time"], df["motor[2]"], label="Motor 2")
-plt.plot(df["time"], df["motor[3]"], label="Motor 3")
+motor_cols = [
+    "motor[0]",
+    "motor[1]",
+    "motor[2]",
+    "motor[3]"
+]
 
-plt.xlabel("Time")
-plt.ylabel("Motor Output")
-plt.title("Motor Outputs Over Time")
-plt.legend()
-plt.show()
+print("\nMotor Means")
+print(df[motor_cols].mean())
 
-# Close the current figure before displaying another plot.
-plt.close()
+print("\nMotor Medians")
+print(df[motor_cols].median())
 
+# ------------------------
+# eRPM statistics
+# ------------------------
 
+erpm_cols = [
+    "eRPM[0]",
+    "eRPM[1]",
+    "eRPM[2]",
+    "eRPM[3]"
+]
 
+print("\neRPM Statistics")
+print(df[erpm_cols].describe())
 
-"""
-plt.plot(df["time"], df["gyroADC[0]"], label="Roll")
-plt.plot(df["time"], df["gyroADC[1]"], label="Pitch")
-plt.plot(df["time"], df["gyroADC[2]"], label="Yaw")
-plt.legend()
-plt.show()
-"""
+# ------------------------
+# Motor correlation analysis
+# ------------------------
 
-
-"""
-plt.figure(figsize=(8, 8))
-plt.scatter(
-    gps["GPS_coord[1]"],
-    gps["GPS_coord[0]"],
-    c=gps["GPS_speed"],
-    cmap="viridis",
-    s=8
-)
-
-plt.colorbar(label="Speed (m/s)")
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.title("GPS Flight Path (Coloured by Speed)")
-plt.grid(True)
-plt.show(block=False)
-"""
+print("\neRPM Correlation Matrix")
+print(df[erpm_cols].corr())
