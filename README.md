@@ -24,16 +24,12 @@ I wanted to understand whether the source of the problem could be identified thr
 
 ## Investigation
 
-The project loads Betaflight blackbox CSV exports and visualises telemetry data that may help identify flight performance issues.
-
-The telemetry logs contain both drone configuration information and flight data. Initial investigation involved examining available columns and sample records using Pandas to identify useful fields for analysis.
-
 Areas analysed include:
 
-- Motor output behaviour
-- Gyroscope measurements (roll, pitch and yaw)
-- GPS telemetry
-- Flight controller debug information
+- Motor output statistics
+- Motor eRPM statistics
+- Correlation between motor eRPM values
+- Comparison of motor behaviour across a flight
 
 The goal was to determine whether unusual motor activity, gyro behaviour or flight dynamics could explain the unwanted movement visible in recorded footage.
 
@@ -57,13 +53,14 @@ The goal was to determine whether unusual motor activity, gyro behaviour or flig
 
 ## Example Analysis
 
-The project visualises:
+The project calculates:
 
-- Motor output data over time
-- Gyroscope measurements
-- GPS position and speed data
+- Mean motor outputs
+- Median motor outputs
+- eRPM summary statistics
+- Correlation between motor eRPM values
 
-This allows flight behaviour to be inspected rather than relying solely on observation from footage.
+Motor correlation analysis was used to investigate whether any motor was behaving significantly differently from the others during flight.
 
 ## Outcome
 
