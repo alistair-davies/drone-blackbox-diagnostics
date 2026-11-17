@@ -20,7 +20,7 @@ To gather additional evidence, I extracted and analysed Betaflight blackbox tele
 
 This project was created to investigate a real\-world flight issue rather than as a programming exercise.
 
-I wanted to understand whether the source of the problem could be identified through telemetry data and whether Python could help visualise information that would otherwise be difficult to interpret from raw log files.
+I wanted to understand whether the source of the problem could be identified through telemetry data and whether Python could help analyse telemetry data that would otherwise be difficult to interpret from raw log files.
 
 ## Investigation
 
